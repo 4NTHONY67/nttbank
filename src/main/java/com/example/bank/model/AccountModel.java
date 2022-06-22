@@ -24,5 +24,7 @@ public class AccountModel {
     private String tipo;
     private String apertura;
     private String cliente;
+    private Double montoApertura;
+    private boolean tarjeta;
 
 }

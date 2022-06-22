@@ -4,7 +4,9 @@ import com.example.bank.model.AccountModel;
 import com.example.bank.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -25,6 +27,13 @@ public class AccountServiceImpl implements  AccountService{
 
     @Override
     public AccountModel create(AccountModel account) {
+        if(account.getMontoApertura().equals(0)){
+            return null;
+        }
+        if(Double.compare(account.getMontoApertura(),1000)>=0)
+            account.setTipo("VIP") ;
+        if(account.isTarjeta() == true)
+            account.setTipo("PYME");
         return accountRepository.save(account);
     }
 
@@ -37,4 +46,5 @@ public class AccountServiceImpl implements  AccountService{
     public void delete(String id) {
         accountRepository.deleteById(id);
     }
+
 }
